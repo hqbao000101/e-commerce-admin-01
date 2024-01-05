@@ -67,8 +67,8 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
           aria-label="Select a store"
           className={cn("w-[200px] justify-between", className)}
         >
-          <StoreIcon className="w-4 h-4 mr-2" />
-          {currentStore?.label}
+          <StoreIcon className="w-4 h-4 mr-2 min-w-4 min-h-4" />
+          <p className="truncate" title={currentStore?.label}>{currentStore?.label}</p>
           <ChevronsUpDown className="w-4 h-4 ml-auto opacity-50 shrink-0" />
         </Button>
       </PopoverTrigger>
@@ -84,8 +84,8 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
                   onSelect={() => onStoreSelect(store)}
                   className="text-sm"
                 >
-                  <StoreIcon className="w-4 h-4 mr-2" />
-                  {store.label}
+                  <StoreIcon className="w-4 h-4 mr-2 min-h-4 min-w-4" />
+                  <p className="truncate" title={store.label}>{store.label}</p>
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",
