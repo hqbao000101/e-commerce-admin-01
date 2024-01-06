@@ -37,7 +37,7 @@ type SettingsFormValues = z.infer<typeof formSchema>;
 const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { storeId } = useParams();
+  const params = useParams();
   const router = useRouter();
 
   const form = useForm<SettingsFormValues>({
@@ -48,7 +48,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const onSubmit = async (data: SettingsFormValues) => {
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${storeId}`, data);
+      await axios.patch(`/api/stores/${params.storeId}`, data);
       router.refresh();
       toast.success("Store updated successfully");
     } catch (error) {
@@ -61,9 +61,10 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/stores/${storeId}`);
+      await axios.delete(`/api/stores/${params.storeId}`);
       router.refresh();
-      router.push("/");
+      // router.push("/");
+      window.location.href = "/";
       toast.success("Store deleted successfully");
     } catch (error) {
       toast.error("Make sure you removed all products and categories first");
