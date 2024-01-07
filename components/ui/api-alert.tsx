@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
-import { Copy, Server } from "lucide-react";
+import { useState } from "react";
+import { Check, Copy, Server } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -28,6 +29,8 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
   description,
   variant = "public",
 }) => {
+  const [isCopied, setIsCopied] = useState(false);
+
   const onCopy = () => {
     navigator.clipboard.writeText(description);
     toast.success("API Route Copied");
@@ -44,8 +47,25 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
           {description}
         </code>
-        <Button variant="outline" size="icon" onClick={onCopy}>
-          <Copy className="w-4 h-4" />
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={onCopy}
+          className={isCopied ? "border-green-500" : ""}
+        >
+          {isCopied ? (
+            <Check className="w-4 h-4 text-green-500" />
+          ) : (
+            <Copy
+              className="w-4 h-4"
+              onClick={() => {
+                setIsCopied(true);
+                setTimeout(() => {
+                  setIsCopied(false);
+                }, 5000);
+              }}
+            />
+          )}
         </Button>
       </AlertDescription>
     </Alert>
