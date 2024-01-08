@@ -23,8 +23,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
+import ImageUpload from "@/components/ui/image-upload";
 
 const formSchema = z.object({
   label: z.string().min(1),
@@ -62,9 +62,17 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${params.storeId}`, data);
+      if (initialData) {
+        await axios.patch(
+          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          data
+        );
+      } else {
+        await axios.post(`/api/${params.storeId}/billboards`, data);
+      }
       router.refresh();
-      toast.success("Store updated successfully");
+      router.push(`/${params.storeId}/billboards`);
+      toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
@@ -75,12 +83,16 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/stores/${params.storeId}`);
+      await axios.delete(
+        `/api/${params.storeId}/billboards/${params.billboardId}`
+      );
       router.refresh();
       router.push("/");
-      toast.success("Store deleted successfully");
+      toast.success("Billboard deleted successfully");
     } catch (error) {
-      toast.error("Make sure you removed all products and categories first");
+      toast.error(
+        "Make sure you removed all categories using this billboard first"
+      );
     } finally {
       setLoading(false);
       setOpen(false);
@@ -116,16 +128,17 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
         >
           <FormField
             control={form.control}
-            name="label"
+            name="imageUrl"
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Background image</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Billboard Label"
-                      {...field}
+                    <ImageUpload
+                      value={field.value ? [field.value] : []}
+                      disable={loading}
+                      onChange={(url) => field.onChange(url)}
+                      onRemove={() => field.onChange("")}
                     />
                   </FormControl>
                   <FormMessage />
