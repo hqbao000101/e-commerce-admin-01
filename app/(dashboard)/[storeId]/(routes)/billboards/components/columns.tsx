@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, Settings } from "lucide-react";
+import { CellAction } from "./cell-actions";
 
 export type BillboardColumn = {
   id: string;
@@ -28,5 +29,10 @@ export const columns: ColumnDef<BillboardColumn>[] = [
   {
     accessorKey: "createdAt",
     header: "Date",
+  },
+  {
+    id: "actions",
+    header: () => <Settings className="w-4 h-4 mx-auto" />,
+    cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];
