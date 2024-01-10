@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Settings } from "lucide-react";
 import { CellAction } from "./cell-actions";
+import toast from "react-hot-toast";
 
 export type ColorColumn = {
   id: string;
@@ -26,6 +27,7 @@ export const columns: ColumnDef<ColorColumn>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => <div className="pl-4">{row.original.name}</div>,
   },
   {
     accessorKey: "value",
@@ -41,12 +43,20 @@ export const columns: ColumnDef<ColorColumn>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="flex items-center gap-x-2">
-        {row.original.value}
+      <div className="flex items-center pl-4 gap-x-2">
         <div
-          className="w-6 h-6 border rounded-full"
+          className="w-6 h-6 border rounded-full shadow-xl"
           style={{ backgroundColor: row.original.value }}
         />
+        <p
+          className="duration-300 cursor-pointer hover:underline active:scale-90"
+          onClick={() => {
+            navigator.clipboard.writeText(row.original.value);
+            toast.success("Color Hex Code copied");
+          }}
+        >
+          {row.original.value.toUpperCase()}
+        </p>
       </div>
     ),
   },

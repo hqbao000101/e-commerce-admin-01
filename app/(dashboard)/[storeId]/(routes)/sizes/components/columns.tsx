@@ -26,6 +26,7 @@ export const columns: ColumnDef<SizeColumn>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => <div className="pl-4">{row.original.name}</div>,
   },
   {
     accessorKey: "value",
@@ -40,6 +41,7 @@ export const columns: ColumnDef<SizeColumn>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => <div className="pl-4">{row.original.value}</div>,
   },
   {
     accessorKey: "createdAt",
