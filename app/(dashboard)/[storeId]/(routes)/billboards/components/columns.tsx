@@ -25,6 +25,7 @@ export const columns: ColumnDef<BillboardColumn>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => <div className="pl-4">{row.original.label}</div>,
   },
   {
     accessorKey: "createdAt",

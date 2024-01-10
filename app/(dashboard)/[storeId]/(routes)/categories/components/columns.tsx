@@ -26,6 +26,7 @@ export const columns: ColumnDef<CategoryColumn>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => <div className="pl-4">{row.original.name}</div>,
   },
   {
     accessorKey: "billboard",
