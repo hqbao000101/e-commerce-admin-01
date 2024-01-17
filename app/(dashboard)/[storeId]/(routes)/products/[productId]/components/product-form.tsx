@@ -154,7 +154,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-8"
+          className="w-full space-y-10"
         >
           <FormField
             control={form.control}
@@ -184,7 +184,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               );
             }}
           />
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid gap-8 md:grid-cols-3 sm:grid-cols-2">
             <FormField
               control={form.control}
               name="name"
@@ -224,6 +224,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 );
               }}
             />
+          </div>
+          <div className="grid gap-8 md:grid-cols-3 sm:grid-cols-2">
             <FormField
               control={form.control}
               name="categoryId"
@@ -326,6 +328,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 );
               }}
             />
+          </div>
+          <div className="grid gap-8 md:grid-cols-3 sm:grid-cols-2">
             <FormField
               control={form.control}
               name="isFeatured"
