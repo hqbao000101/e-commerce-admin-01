@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, Settings } from "lucide-react";
 import { CellAction } from "./cell-actions";
+import toast from "react-hot-toast";
 
 export type ProductColumn = {
   id: string;
@@ -73,7 +74,15 @@ export const columns: ColumnDef<ProductColumn>[] = [
           className="w-6 h-6 border rounded-full"
           style={{ backgroundColor: row.original.color }}
         />
-        {row.original.color}
+        <p
+          className="duration-300 cursor-pointer active:scale-95 hover:underline"
+          onClick={() => {
+            navigator.clipboard.writeText(row.original.color);
+            toast.success("Hex Code Copied!");
+          }}
+        >
+          {row.original.color}
+        </p>
       </div>
     ),
   },
