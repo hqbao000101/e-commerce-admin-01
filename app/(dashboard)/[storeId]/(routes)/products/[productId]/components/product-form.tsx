@@ -79,7 +79,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     defaultValues: initialData
       ? {
           ...initialData,
-          price: parseFloat(String(initialData.price)),
+          price: parseFloat(String(initialData?.price)),
         }
       : {
           name: "",
