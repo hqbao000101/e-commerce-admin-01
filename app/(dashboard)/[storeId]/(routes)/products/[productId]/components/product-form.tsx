@@ -318,7 +318,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
                       <SelectContent>
                         {colors.map((color) => (
                           <SelectItem key={color.id} value={color.id}>
-                            {color.name}
+                            <div className="flex items-center">
+                              <div
+                                className="w-4 h-4 mr-2 border rounded-full shadow-md"
+                                style={{ backgroundColor: `${color.value}` }}
+                              ></div>
+                              <p>{color.name}</p>
+                            </div>
                           </SelectItem>
                         ))}
                       </SelectContent>
