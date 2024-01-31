@@ -1,9 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Settings } from "lucide-react";
-import { CellAction } from "./cell-actions";
 
 export type OrderColumn = {
   id: string;
